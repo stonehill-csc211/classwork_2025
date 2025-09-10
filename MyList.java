@@ -9,4 +9,6 @@ public abstract class MyList<T> {
     public abstract int size();
     public abstract String toString();
 
+    public abstract void repeat(int k);
+
 }

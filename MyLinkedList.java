@@ -71,7 +71,27 @@ public class MyLinkedList<T> extends MyList<T> {
     
         public T set(int position, T newValue){return null;}
     public boolean contains(T query){return false;}
-    public int size(){return 0;}
+    public int size(){return this.length;}
+
+    public void repeat(int k){
+        Node current = this.head;
+        Node next, newNode;
+        while(current != null){
+            next = current.next;
+            for(int j = 0; j < k-1; j++){
+                newNode = new Node();
+                newNode.value = current.value;
+                current.next = newNode;
+                current = newNode;
+            }
+            current.next = next;
+            if(current.next == null){
+                tail = current;
+            }
+            current = next;
+        }
+        length = length * k;
+    }
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
@@ -89,14 +109,16 @@ public class MyLinkedList<T> extends MyList<T> {
         MyLinkedList<String> lst = new MyLinkedList<>();
         lst.add("first");
         lst.add("second");
-        System.out.println(lst);
-        for(int i = 0; i < 3; i++){
+        //System.out.println(lst);
+        for(int i = 0; i < 10; i++){
             lst.add("third");
         }
-        System.out.println(lst);
+        /*System.out.println(lst);
         lst.insert(3, "fourth");
         System.out.println(lst);
         System.out.println(lst.get(3));
-        System.out.println(lst.get(6));
+        System.out.println(lst.get(6));*/
+        lst.repeat(3);
+        System.out.println(lst);
     }
 }
