@@ -5,6 +5,7 @@ public class MajorityElement {
     public int majority(Comparable[] arr){
         // returns the index of the majority element
         // or -1 if there is none
+        // NOTE: There is a better solution! See class notes for the Bayer-Moore algorithm
         int count = 0, ind = -1, bestCount = arr.length/2;
         for(int i = 0; i < arr.length; i++){
             count = 0;
