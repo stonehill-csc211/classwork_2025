@@ -1,4 +1,4 @@
-public class MyLinkedList<T> extends MyList<T> {
+public class MyLinkedList<T extends Comparable<T>> extends MyList<T> {
 
     private Node head;
     private Node tail;
@@ -93,6 +93,27 @@ public class MyLinkedList<T> extends MyList<T> {
         length = length * k;
     }
 
+    public T min(){
+        /*
+         * Return the min element of the linkedlist
+         * Using ~Recursion~ (ooh)
+         */
+        return min(head);
+    }
+
+    private T min(Node n){
+        /*
+         * Find the minimum value at or after node n
+         * in the list
+         * Time complexity: O(n)
+         */
+        if(n == null) return null;
+        else if(n.next == null) return n.value;
+        T minOfRest = min(n.next);
+        if(n.value.compareTo(minOfRest) < 0) return n.value;
+        else return minOfRest;
+    }
+
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("[");
@@ -119,6 +140,8 @@ public class MyLinkedList<T> extends MyList<T> {
         System.out.println(lst.get(3));
         System.out.println(lst.get(6));*/
         lst.repeat(3);
+        lst.add("eighth");
         System.out.println(lst);
+        System.out.println(lst.min());
     }
 }
