@@ -1,4 +1,8 @@
-public class BinarySearchTree<T extends Comparable> {
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+public class BinarySearchTree<T extends Comparable<T>> {
     Node root;
 
     private class Node{
@@ -116,6 +120,40 @@ public class BinarySearchTree<T extends Comparable> {
             
         }
 
+        public ArrayList<Node> toListPreorder(){
+            // return a list of the nodes in the bst in pre-order
+            ArrayList<Node> values = new ArrayList<Node>();
+            values.add(this);
+            if(this.left != null) values.addAll(this.left.toListPreorder());
+            if(this.right != null) values.addAll(this.right.toListPreorder());
+            return values;
+        }
+
+        public ArrayList<Node> toListPostorder(){
+            // return a list of the nodes in the bst in post-order
+            ArrayList<Node> values = new ArrayList<Node>();
+            
+            if(this.left != null) values.addAll(this.left.toListPostorder());
+            if(this.right != null) values.addAll(this.right.toListPostorder());
+            values.add(this);
+            return values;
+        }
+
+        public ArrayList<Node> toListInOrder(){
+            // return a list of the nodes in the bst in post-order
+            ArrayList<Node> values = new ArrayList<Node>();
+            
+            if(this.left != null) values.addAll(this.left.toListInOrder());
+            values.add(this);
+            if(this.right != null) values.addAll(this.right.toListInOrder());
+            
+            return values;
+        }
+
+        
+
+
+
         private String toString(int depth){
             StringBuilder sb = new StringBuilder();
             for(int i = 0; i < depth; i++){
@@ -154,6 +192,23 @@ public class BinarySearchTree<T extends Comparable> {
         return root.toString(0);
     }
 
+    private ArrayList<Node> toListLevelOrder(){
+        ArrayList<Node> values = new ArrayList<Node>();
+        Queue<Node> q = new ArrayQueue<Node>();
+        q.enqueue(root);
+        Node current;
+        while(q.size() != 0){
+            current = q.dequeue();
+            values.add(current);
+            if(current.left != null) q.enqueue(current.left);
+            if(current.right != null) q.enqueue(current.right);
+        }
+        return values;
+
+    }
+
+    
+
     public static void main(String[] args){
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
         bst.add(10);
@@ -162,13 +217,28 @@ public class BinarySearchTree<T extends Comparable> {
         bst.add(3);
         bst.add(7);
         bst.add(8);
-        System.out.println(bst);
-        System.out.println(bst.contains(7) + " should be true");
-        System.out.println(bst.contains(4) + " should be false");
+        //System.out.println(bst);
+        //System.out.println(bst.contains(7) + " should be true");
+        //System.out.println(bst.contains(4) + " should be false");
 
-        bst.remove(1);
-        bst.remove(8);
-        bst.remove(5);
-        System.out.println(bst);
+        //bst.remove(1);
+        //bst.remove(8);
+        //bst.remove(5);
+        //System.out.println(bst);
+        for(BinarySearchTree<Integer>.Node n: bst.root.toListPreorder()){
+            System.out.print(n.data + " ");
+        }
+        System.out.println();
+        for(BinarySearchTree<Integer>.Node n: bst.root.toListPostorder()){
+            System.out.print(n.data + " ");
+        }
+        System.out.println();
+        for(BinarySearchTree<Integer>.Node n: bst.root.toListInOrder()){
+            System.out.print(n.data + " ");
+        }
+        System.out.println();
+        for(BinarySearchTree<Integer>.Node n: bst.toListLevelOrder()){
+            System.out.print(n.data + " ");
+        }
     }
 }
