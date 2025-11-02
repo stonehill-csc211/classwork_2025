@@ -61,7 +61,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
             T temp = current.data;
             current.data = this.data;
             this.data = temp;
-            if(parent == this) parent.left = null;
+            if(parent == this) parent.left = current.left;
             else parent.right = null;
         }
         private void swapSmallestRightChild(){
@@ -75,7 +75,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
             T temp = current.data;
             current.data = this.data;
             this.data = temp;
-            if(parent == this) parent.right = null;
+            if(parent == this) parent.right = current.right;
             else parent.left = null;
         }
 
